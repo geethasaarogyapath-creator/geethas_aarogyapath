@@ -15,7 +15,7 @@ const Register = () => {
 
   const handlereg = async(e) => {
     e.preventDefault()
-    const response = await fetch("http://localhost:3000/client/reg",{
+    const response = await fetch("https://aarogyapath.onrender.com/client/reg",{
         method:"POST",
         headers:{
           "Content-Type":"application/json"
