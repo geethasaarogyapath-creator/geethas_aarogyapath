@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import Navbar from './Navbar'
 import Spinner from './Spinner'
+import Swal from 'sweetalert2'
 
 const Register = () => {
 
@@ -22,24 +23,58 @@ const Register = () => {
     try {
       const response = await fetch("https://aarogyapath.onrender.com/client/reg", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json"
+        },
         body: JSON.stringify({
-          name, email, phone, age, gender,
-          isvisited: false, height, weight,
-          proffession: profession, address
+          name,
+          email,
+          phone,
+          age,
+          gender,
+          isvisited: false,
+          height,
+          weight,
+          proffession: profession,
+          address
         })
       })
 
       const res = await response.json()
 
       if (response.ok) {
-        alert(res)
+        Swal.fire({
+          icon: "success",
+          title: "Registration Successful",
+          text: res,
+          confirmButtonColor: "#2563eb",
+          background: "#f9fafb",
+          color: "#111827"
+        })
+        setName("")
+        setAddress("")
+        setAge("")
+        setEmail("")
+        setGender("")
+        setHeight("")
+        setWeight("")
+        setPhone("")
+        setProfession("")
       } else {
-        alert("Registration failed")
+        Swal.fire({
+          icon: "error",
+          title: "Registration Failed",
+          text: "Please try again",
+          confirmButtonColor: "#dc2626"
+        })
       }
     } catch (error) {
-      console.log(error)
-      alert("Server error")
+      Swal.fire({
+        icon: "error",
+        title: "Server Error",
+        text: "Something went wrong",
+        confirmButtonColor: "#dc2626"
+      })
     } finally {
       setLoading(false)
     }
@@ -49,7 +84,7 @@ const Register = () => {
     <>
       <Navbar />
 
-      <div className="h-[calc(100vh-64px)] bg-gray-100 flex items-center justify-center px-4">
+      <div className="h-[calc(100vh)] bg-gray-100 flex items-center justify-center px-4">
         <div className="w-full max-w-md sm:max-w-lg bg-white rounded-2xl shadow-2xl p-6 sm:p-8">
 
           <h2 className="text-xl sm:text-2xl font-bold text-center mb-6">
@@ -57,42 +92,51 @@ const Register = () => {
           </h2>
 
           {loading ? <Spinner /> : (
+
             <form onSubmit={handlereg} className="flex flex-col gap-4">
 
-              <input className="input" type="text" placeholder="Full Name"
-                value={name} onChange={e => setName(e.target.value)} required />
+              <input className="w-full px-4 py-2 border rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                type="text" placeholder="Full Name" value={name}
+                onChange={e => setName(e.target.value)} required />
 
-              <input className="input" type="number" placeholder="Age"
-                value={age} onChange={e => setAge(e.target.value)} required />
+              <input className="w-full px-4 py-2 border rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                type="number" placeholder="Age" value={age}
+                onChange={e => setAge(e.target.value)} required />
 
-              <input className="input" type="number" placeholder="Height (cm)"
-                value={height} onChange={e => setHeight(e.target.value)} required />
+              <input className="w-full px-4 py-2 border rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                type="number" placeholder="Height (feets)" value={height}
+                onChange={e => setHeight(e.target.value)} required />
 
-              <input className="input" type="number" placeholder="Weight (kg)"
-                value={weight} onChange={e => setWeight(e.target.value)} required />
+              <input className="w-full px-4 py-2 border rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                type="number" placeholder="Weight (kg)" value={weight}
+                onChange={e => setWeight(e.target.value)} required />
 
-              <input className="input" type="text" placeholder="Address"
-                value={address} onChange={e => setAddress(e.target.value)} required />
+              <input className="w-full px-4 py-2 border rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                type="text" placeholder="Address" value={address}
+                onChange={e => setAddress(e.target.value)} required />
 
-              <input className="input" type="text" placeholder="Profession"
-                value={profession} onChange={e => setProfession(e.target.value)} required />
+              <input className="w-full px-4 py-2 border rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                type="text" placeholder="Profession" value={profession}
+                onChange={e => setProfession(e.target.value)} required />
 
-              <select className="input" value={gender}
-                onChange={e => setGender(e.target.value)} required>
+              <select className="w-full px-4 py-2 border rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none bg-white"
+                value={gender} onChange={e => setGender(e.target.value)} required>
                 <option value="">Select Gender</option>
                 <option>Male</option>
                 <option>Female</option>
                 <option>Other</option>
               </select>
 
-              <input className="input" type="email" placeholder="Email"
-                value={email} onChange={e => setEmail(e.target.value)} required />
+              <input className="w-full px-4 py-2 border rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                type="email" placeholder="Email" value={email}
+                onChange={e => setEmail(e.target.value)} required />
 
-              <input className="input" type="tel" placeholder="Phone Number"
-                value={phone} onChange={e => setPhone(e.target.value)} required />
+              <input className="w-full px-4 py-2 border rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                type="tel" placeholder="Phone Number" value={phone}
+                onChange={e => setPhone(e.target.value)} required />
 
               <button className="mt-4 h-11 bg-blue-600 text-white rounded-lg font-semibold 
-                                 hover:bg-blue-700 hover:shadow-lg transition-all">
+                                 hover:bg-blue-700 hover:shadow-lg transition-all cursor-pointer">
                 REGISTER
               </button>
 

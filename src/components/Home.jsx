@@ -1,9 +1,23 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Navbar from './Navbar'
+import Spinner from './Spinner'
 
 const Home = () => {
   const nav = useNavigate()
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false)
+    }, 1000) // simulate initial load
+
+    return () => clearTimeout(timer)
+  }, [])
+
+  if (loading) {
+    return <Spinner />
+  }
 
   return (
     <>
@@ -18,6 +32,7 @@ const Home = () => {
           alt="Aarogyapath"
           className="w-full max-w-md rounded-3xl shadow-2xl mb-8 hover:scale-105 transition-transform duration-300"
         />
+
         <button
           onClick={() => nav('/register')}
           className="bg-indigo-600 text-white px-8 py-3 rounded-full text-lg font-semibold shadow-lg hover:bg-indigo-700 hover:scale-105 transition-all"
