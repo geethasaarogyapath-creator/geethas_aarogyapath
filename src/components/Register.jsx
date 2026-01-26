@@ -20,6 +20,17 @@ const Register = () => {
     e.preventDefault()
     setLoading(true)
 
+    if(phone.length!==10){
+      Swal.fire({
+          icon: "error",
+          title: "Phone Number should be 10 digits",
+          text: "Please enter 10 Digit Phone Number",
+          confirmButtonColor: "#dc2626"
+        })
+      setLoading(false)
+      return
+    }
+
     try {
       const response = await fetch("https://aarogyapath.onrender.com/client/reg", {
         method: "POST",
