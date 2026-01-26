@@ -42,7 +42,7 @@ const Register = () => {
 
       const res = await response.json()
 
-      if (response.ok) {
+      if (response.ok && res=="Registered Successfully") {
         Swal.fire({
           icon: "success",
           title: "Registration Successful",
@@ -60,7 +60,13 @@ const Register = () => {
         setWeight("")
         setPhone("")
         setProfession("")
-      } else {
+      } else if(response.ok && res=="Already Registered"){
+        Swal.fire({
+          icon: "error",
+          title: "Already Registered with this email",
+          confirmButtonColor: "#dc2626"
+        })
+      }else {
         Swal.fire({
           icon: "error",
           title: "Registration Failed",
