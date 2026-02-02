@@ -12,6 +12,7 @@ createRoot(document.getElementById('root')).render(
       <Route element={<App />} />
       <Route path='/' element={<Home />} />
       <Route path='/register' element={<Register />} />
+      <Route path='/sitemap.xml' element={<Register />} />
     </Routes>
   </BrowserRouter>
 )

@@ -3,6 +3,7 @@ import Navbar from './Navbar'
 import Spinner from './Spinner'
 import Swal from 'sweetalert2'
 
+
 const Register = () => {
 
   const [name, setName] = useState("")
